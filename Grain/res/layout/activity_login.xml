@@ -1,0 +1,204 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".LoginActivity" >
+
+    <LinearLayout
+        android:id="@+id/login_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" 
+        android:visibility="gone">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/login_status_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="正在登录..."
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+    
+         <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="43dp"
+            android:background="@drawable/biaobei"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="广州市粮油监测信息管理系统"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:singleLine="true"
+                 />
+        </LinearLayout>
+        
+    <!-- Login form -->
+    <LinearLayout
+        android:id="@+id/login_form"
+        style="@style/LoginFormContainer"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+         >
+        
+        <EditText
+            android:id="@+id/addr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+             android:visibility="gone"
+            android:layout_marginLeft="5dp"
+            android:hint="地址"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/port"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+             android:visibility="gone"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:hint="端口"
+            android:inputType="number"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="10000" />
+
+        
+        
+        <LinearLayout 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+          
+            >
+            <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用户名"
+             android:layout_gravity="center"
+            />
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:hint="请输入用户名"
+            android:maxLines="1"
+            android:singleLine="true" />
+            
+            
+        </LinearLayout>
+        
+
+                
+        <LinearLayout 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+          
+            >
+            <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="密    码"
+             android:layout_gravity="center"
+            />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:ems="10"
+            android:hint="请输入密码"
+            android:imeActionId="@+id/login"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true" >
+
+            <requestFocus />
+        </EditText>
+            
+            </LinearLayout>
+		<LinearLayout 
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal"
+		    android:layout_marginTop="20dp"
+		    android:baselineAligned="true"
+		    >
+         <Button
+            android:id="@+id/sign_in_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="登录"
+            android:layout_weight="1"
+             />
+		    <Button
+		        android:id="@+id/btn_setting"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:text="网络配置"
+		         android:layout_weight="1"
+		         />
+		</LinearLayout>
+        
+        <LinearLayout 
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal"
+		    android:layout_marginTop="20dp"
+		    android:layout_gravity="right"
+	        android:layout_marginRight="20dp"
+            android:baselineAligned="true"
+		    >  
+		    <CheckBox
+			    android:id="@+id/is_save_password"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="1"
+			     android:layout_gravity="center"
+			    android:text="记住密码" />
+		    <CheckBox
+			    android:id="@+id/is_auto_login"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="1"
+			     android:layout_gravity="center"
+			    android:text="自动登录" />
+            
+
+
+
+		</LinearLayout>
+        
+        
+      
+    </LinearLayout>
+
+</FrameLayout>

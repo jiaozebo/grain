@@ -1,0 +1,638 @@
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tail_grade]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[tail_grade](
+	[id] [varchar](50) NOT NULL,
+	[name] [varchar](50) NULL,
+	[s_remark] [varchar](2000) NULL,
+	[s_sortNo] [int] NULL,
+	[s_del] [int] NULL,
+	[s_version] [int] NULL,
+	[s_dtCreate] [datetime] NULL,
+	[s_user_id_create] [varchar](50) NULL,
+	[s_dtMod] [datetime] NULL,
+	[s_user_id_mod] [varchar](50) NULL
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tail_foodType]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[tail_foodType](
+	[id] [varchar](50) NOT NULL,
+	[name] [varchar](50) NULL,
+	[grade_id] [varchar](50) NULL,
+	[s_remark] [varchar](2000) NULL,
+	[s_sortNo] [int] NULL,
+	[s_del] [int] NULL,
+	[s_version] [int] NULL,
+	[s_dtCreate] [datetime] NULL,
+	[s_user_id_create] [varchar](50) NULL,
+	[s_dtMod] [datetime] NULL,
+	[s_user_id_mod] [varchar](50) NULL
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tail_listerSite]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[tail_listerSite](
+	[id] [varchar](50) NOT NULL,
+	[lister_id] [varchar](50) NULL,
+	[site_id] [varchar](50) NULL,
+	[s_remark] [varchar](2000) NULL,
+	[s_sortNo] [int] NULL,
+	[s_del] [int] NULL,
+	[s_version] [int] NULL,
+	[s_dtCreate] [datetime] NULL,
+	[s_user_id_create] [varchar](50) NULL,
+	[s_dtMod] [datetime] NULL,
+	[s_user_id_mod] [varchar](50) NULL
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[rs_department]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[rs_department](
+	[id] [varchar](45) NOT NULL,
+	[s_version] [int] NOT NULL,
+	[name] [varchar](50) NULL,
+	[sortNum] [varchar](50) NULL,
+	[telephone] [varchar](50) NULL,
+	[fax] [varchar](50) NULL,
+	[p_id] [varchar](50) NULL,
+	[location] [varchar](200) NULL,
+	[s_createPerson_id] [varchar](50) NULL,
+	[s_createDate] [datetime] NULL,
+	[s_modifyPerson_id] [varchar](50) NULL,
+	[s_modifyDate] [datetime] NULL,
+	[s_is_deleted] [tinyint] NULL,
+	[s_remark] [varchar](255) NULL,
+	[s_flag_lock] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[rs_role]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[rs_role](
+	[id] [varchar](45) NOT NULL,
+	[s_version] [int] NULL,
+	[name] [varchar](50) NULL,
+	[s_sortNo] [varchar](50) NULL,
+	[s_createPerson_id] [varchar](50) NULL,
+	[s_createDate] [datetime] NULL,
+	[s_modifyPerson_id] [varchar](50) NULL,
+	[s_modifyDate] [datetime] NULL,
+	[s_is_deleted] [tinyint] NULL,
+	[s_remark] [varchar](255) NULL,
+	[s_flag_lock] [int] NULL,
+	[url] [varchar](50) NULL
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[rs_userRole]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[rs_userRole](
+	[id] [varchar](45) NOT NULL,
+	[s_version] [int] NULL,
+	[user_id] [varchar](50) NULL,
+	[role_id] [varchar](50) NULL,
+	[s_createPerson_id] [varchar](50) NULL,
+	[s_createDate] [datetime] NULL,
+	[s_modifyPerson_id] [varchar](50) NULL,
+	[s_modifyDate] [datetime] NULL,
+	[s_is_deleted] [tinyint] NULL,
+	[s_remark] [varchar](255) NULL,
+	[s_flag_lock] [int] NULL
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[rs_userDep]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[rs_userDep](
+	[ID] [varchar](45) NOT NULL,
+	[s_version] [int] NOT NULL,
+	[user_id] [varchar](50) NULL,
+	[department_id] [varchar](50) NULL,
+	[userSortNum] [varchar](50) NULL,
+	[s_createPerson_id] [varchar](50) NULL,
+	[s_createDate] [datetime] NULL,
+	[s_modifyPerson_id] [varchar](50) NULL,
+	[s_modifyDate] [datetime] NULL,
+	[s_is_deleted] [tinyint] NULL,
+	[s_remark] [varchar](255) NULL,
+	[s_flag_lock] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tail_siteFoodType]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[tail_siteFoodType](
+	[id] [varchar](50) NULL,
+	[foodType_id] [varchar](50) NULL,
+	[site_id] [varchar](50) NULL
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tail_quotation]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[tail_quotation](
+	[id] [varchar](50) NOT NULL,
+	[site_id] [varchar](50) NULL,
+	[serinum] [varchar](50) NULL,
+	[foodType_id] [varchar](50) NULL,
+	[grade_id] [varchar](50) NULL,
+	[buyPrice] [numeric](10, 2) NULL,
+	[tradePrice] [numeric](10, 2) NULL,
+	[dayRetailPrice] [numeric](10, 2) NULL,
+	[weekRetailPrice] [numeric](10, 2) NULL,
+	[buyNumber] [int] NULL,
+	[tradeNumber] [int] NULL,
+	[dayRetailNumber] [int] NULL,
+	[weekRetailNumber] [int] NULL,
+	[state] [varchar](50) NULL,
+	[lister_id] [varchar](50) NULL,
+	[s_remark] [varchar](2000) NULL,
+	[s_sortNo] [int] NULL,
+	[s_del] [int] NULL,
+	[s_version] [int] NULL,
+	[s_dtCreate] [datetime] NULL,
+	[s_user_id_create] [varchar](50) NULL,
+	[s_dtMod] [datetime] NULL,
+	[s_user_id_mod] [varchar](50) NULL
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tail_message]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[tail_message](
+	[id] [varchar](45) NOT NULL,
+	[lister_id] [varchar](50) NULL,
+	[content] [varchar](2000) NULL,
+	[sender] [varchar](50) NULL,
+	[sendTime] [datetime] NULL,
+	[isRead] [tinyint] NULL,
+	[s_version] [int] NOT NULL,
+	[s_createPerson_id] [varchar](50) NULL,
+	[s_createDate] [datetime] NULL,
+	[s_modifyPerson_id] [varchar](50) NULL,
+	[s_modifyDate] [datetime] NULL,
+	[s_is_deleted] [tinyint] NULL,
+	[s_remark] [varchar](255) NULL,
+	[s_flag_lock] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tail_pic]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[tail_pic](
+	[id] [varchar](45) NULL,
+	[serinum] [varchar](50) NULL,
+	[name] [varchar](100) NULL,
+	[path] [varchar](200) NULL
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tail_client_version]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[tail_client_version](
+	[id] [varchar](50) NOT NULL,
+	[version] [varchar](50) NULL,
+	[changeLog] [varchar](100) NULL,
+	[path] [varchar](50) NULL
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tail_lister]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[tail_lister](
+	[id] [varchar](50) NOT NULL,
+	[department_id] [varchar](50) NULL,
+	[loginName] [varchar](50) NULL,
+	[password] [varchar](50) NULL,
+	[cnName] [varchar](50) NULL,
+	[telephone] [varchar](50) NULL,
+	[handPhone] [varchar](50) NULL,
+	[email] [varchar](50) NULL,
+	[fax] [varchar](50) NULL,
+	[s_remark] [varchar](2000) NULL,
+	[s_sortNo] [int] NULL,
+	[s_del] [int] NULL,
+	[s_version] [int] NULL,
+	[s_dtCreate] [datetime] NULL,
+	[s_user_id_create] [varchar](50) NULL,
+	[s_dtMod] [datetime] NULL,
+	[s_user_id_mod] [varchar](50) NULL
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tail_site]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[tail_site](
+	[id] [varchar](50) NOT NULL,
+	[name] [varchar](50) NULL,
+	[type] [varchar](50) NULL,
+	[address] [varchar](300) NULL,
+	[linkPhone] [varchar](50) NULL,
+	[fax] [varchar](50) NULL,
+	[area] [varchar](50) NULL,
+	[s_remark] [varchar](2000) NULL,
+	[s_sortNo] [int] NULL,
+	[s_del] [int] NULL,
+	[s_version] [int] NULL,
+	[s_dtCreate] [datetime] NULL,
+	[s_user_id_create] [varchar](50) NULL,
+	[s_dtMod] [datetime] NULL,
+	[s_user_id_mod] [varchar](50) NULL,
+	[coordinate] [varchar](50) NULL
+) ON [PRIMARY]
+END
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'зјБъ' ,@level0type=N'SCHEMA', @level0name=N'dbo', @level1type=N'TABLE', @level1name=N'tail_site', @level2type=N'COLUMN', @level2name=N'coordinate'
+
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[v_tail_quotation]'))
+EXEC dbo.sp_executesql @statement = N'Create View [dbo].[v_tail_quotation] as 
+select area,subString(serinum,0,5) as cy,cm=case when subString(serinum,6,1)=''0'' then subString(serinum,7,1) 
+when subString(serinum,6,1)=''1'' then subString(serinum,6,2) end,
+ts.name as siteName,tl.cnName as cjr,tft.name as ftName,tg.name as gradeName,
+q.* from tail_quotation q left join tail_foodType tft on q.foodType_id=tft.id 
+left join tail_grade tg on q.grade_id=tg.id left join tail_site ts on q.site_id=ts.id 
+left join tail_lister tl on q.lister_id=tl.id' 
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[v_rs_userDep]'))
+EXEC dbo.sp_executesql @statement = N'CREATE VIEW [dbo].[v_rs_userDep]
+AS
+SELECT     dbo.rs_userDep.ID, dbo.rs_userDep.s_version, dbo.rs_userDep.user_id, dbo.rs_userDep.department_id, dbo.rs_userDep.userSortNum, 
+                      dbo.rs_userDep.s_createPerson_id, dbo.rs_userDep.s_createDate, dbo.rs_userDep.s_modifyPerson_id, dbo.rs_userDep.s_modifyDate, 
+                      dbo.rs_userDep.s_is_deleted, dbo.rs_userDep.s_remark, dbo.rs_userDep.s_flag_lock, dbo.rs_department.name AS department_name, 
+                      dbo.rs_user.name AS user_name
+FROM         dbo.rs_userDep LEFT OUTER JOIN
+                      dbo.rs_department ON dbo.rs_userDep.department_id = dbo.rs_department.ID LEFT OUTER JOIN
+                      dbo.rs_user ON dbo.rs_userDep.user_id = dbo.rs_user.id
+
+
+
+' 
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[v_rs_userRole]'))
+EXEC dbo.sp_executesql @statement = N'CREATE VIEW [dbo].[v_rs_userRole]
+AS
+SELECT     dbo.rs_userRole.id, dbo.rs_userRole.s_version, dbo.rs_userRole.user_id, dbo.rs_userRole.role_id, dbo.rs_userRole.s_createPerson_id, 
+                      dbo.rs_userRole.s_createDate, dbo.rs_userRole.s_modifyPerson_id, dbo.rs_userRole.s_modifyDate, dbo.rs_userRole.s_is_deleted, 
+                      dbo.rs_userRole.s_remark, dbo.rs_userRole.s_flag_lock, dbo.rs_user.name AS user_name, dbo.rs_role.name AS role_name
+FROM         dbo.rs_userRole INNER JOIN
+                      dbo.rs_user ON dbo.rs_userRole.user_id = dbo.rs_user.id LEFT OUTER JOIN
+                      dbo.rs_role ON dbo.rs_userRole.role_id = dbo.rs_role.id
+UNION
+SELECT     rs_userRole_1.id, rs_userRole_1.s_version, rs_userRole_1.user_id, rs_userRole_1.role_id, rs_userRole_1.s_createPerson_id, 
+                      rs_userRole_1.s_createDate, rs_userRole_1.s_modifyPerson_id, rs_userRole_1.s_modifyDate, rs_userRole_1.s_is_deleted, 
+                      rs_userRole_1.s_remark, rs_userRole_1.s_flag_lock, dbo.tail_lister.cnName AS user_name, rs_role_1.name AS role_name
+FROM         dbo.rs_userRole AS rs_userRole_1 INNER JOIN
+                      dbo.tail_lister ON rs_userRole_1.user_id = dbo.tail_lister.id LEFT OUTER JOIN
+                      dbo.rs_role AS rs_role_1 ON rs_userRole_1.role_id = rs_role_1.id
+' 
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPane1', @value=N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
+Begin DesignProperties = 
+   Begin PaneConfigurations = 
+      Begin PaneConfiguration = 0
+         NumPanes = 4
+         Configuration = "(H (1[40] 4[20] 2[20] 3) )"
+      End
+      Begin PaneConfiguration = 1
+         NumPanes = 3
+         Configuration = "(H (1 [50] 4 [25] 3))"
+      End
+      Begin PaneConfiguration = 2
+         NumPanes = 3
+         Configuration = "(H (1 [50] 2 [25] 3))"
+      End
+      Begin PaneConfiguration = 3
+         NumPanes = 3
+         Configuration = "(H (4[30] 2[40] 3) )"
+      End
+      Begin PaneConfiguration = 4
+         NumPanes = 2
+         Configuration = "(H (1 [56] 3))"
+      End
+      Begin PaneConfiguration = 5
+         NumPanes = 2
+         Configuration = "(H (2 [66] 3))"
+      End
+      Begin PaneConfiguration = 6
+         NumPanes = 2
+         Configuration = "(H (4 [50] 3))"
+      End
+      Begin PaneConfiguration = 7
+         NumPanes = 1
+         Configuration = "(V (3))"
+      End
+      Begin PaneConfiguration = 8
+         NumPanes = 3
+         Configuration = "(H (1[56] 4[18] 2) )"
+      End
+      Begin PaneConfiguration = 9
+         NumPanes = 2
+         Configuration = "(H (1 [75] 4))"
+      End
+      Begin PaneConfiguration = 10
+         NumPanes = 2
+         Configuration = "(H (1[66] 2) )"
+      End
+      Begin PaneConfiguration = 11
+         NumPanes = 2
+         Configuration = "(H (4 [60] 2))"
+      End
+      Begin PaneConfiguration = 12
+         NumPanes = 1
+         Configuration = "(H (1) )"
+      End
+      Begin PaneConfiguration = 13
+         NumPanes = 1
+         Configuration = "(V (4))"
+      End
+      Begin PaneConfiguration = 14
+         NumPanes = 1
+         Configuration = "(V (2))"
+      End
+      ActivePaneConfig = 3
+   End
+   Begin DiagramPane = 
+      PaneHidden = 
+      Begin Origin = 
+         Top = 0
+         Left = 0
+      End
+      Begin Tables = 
+      End
+   End
+   Begin SQLPane = 
+   End
+   Begin DataPane = 
+      Begin ParameterDefaults = ""
+      End
+      Begin ColumnWidths = 14
+         Width = 284
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+      End
+   End
+   Begin CriteriaPane = 
+      Begin ColumnWidths = 5
+         Column = 1440
+         Alias = 900
+         Table = 1170
+         Output = 720
+         Append = 1400
+         NewValue = 1170
+         SortType = 1350
+         SortOrder = 1410
+         GroupBy = 1350
+         Filter = 1350
+         Or = 1350
+         Or = 1350
+         Or = 1350
+      End
+   End
+End
+' ,@level0type=N'SCHEMA', @level0name=N'dbo', @level1type=N'VIEW', @level1name=N'v_rs_userRole'
+
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPaneCount', @value=1 ,@level0type=N'SCHEMA', @level0name=N'dbo', @level1type=N'VIEW', @level1name=N'v_rs_userRole'
+
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[rs_user]'))
+EXEC dbo.sp_executesql @statement = N'CREATE VIEW [dbo].[rs_user]
+AS
+SELECT     id, 0 AS s_version, cnName AS name, loginName, password, email, telephone, 0 AS is_allowLogin, s_user_id_create AS s_createPerson_id, 
+                      s_dtCreate AS s_createDate, s_user_id_mod AS s_modifyPerson_id, CAST(NULL AS datetime) AS s_modifyDate, s_del AS s_is_deleted, s_remark, 
+                      0 AS s_flag_lock, '''' AS userName, handPhone AS mobile, fax
+FROM         dbo.tail_lister
+' 
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPane1', @value=N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
+Begin DesignProperties = 
+   Begin PaneConfigurations = 
+      Begin PaneConfiguration = 0
+         NumPanes = 4
+         Configuration = "(H (1[40] 4[20] 2[20] 3) )"
+      End
+      Begin PaneConfiguration = 1
+         NumPanes = 3
+         Configuration = "(H (1 [50] 4 [25] 3))"
+      End
+      Begin PaneConfiguration = 2
+         NumPanes = 3
+         Configuration = "(H (1 [50] 2 [25] 3))"
+      End
+      Begin PaneConfiguration = 3
+         NumPanes = 3
+         Configuration = "(H (4 [30] 2 [40] 3))"
+      End
+      Begin PaneConfiguration = 4
+         NumPanes = 2
+         Configuration = "(H (1 [56] 3))"
+      End
+      Begin PaneConfiguration = 5
+         NumPanes = 2
+         Configuration = "(H (2 [66] 3))"
+      End
+      Begin PaneConfiguration = 6
+         NumPanes = 2
+         Configuration = "(H (4 [50] 3))"
+      End
+      Begin PaneConfiguration = 7
+         NumPanes = 1
+         Configuration = "(V (3))"
+      End
+      Begin PaneConfiguration = 8
+         NumPanes = 3
+         Configuration = "(H (1[56] 4[18] 2) )"
+      End
+      Begin PaneConfiguration = 9
+         NumPanes = 2
+         Configuration = "(H (1 [75] 4))"
+      End
+      Begin PaneConfiguration = 10
+         NumPanes = 2
+         Configuration = "(H (1[66] 2) )"
+      End
+      Begin PaneConfiguration = 11
+         NumPanes = 2
+         Configuration = "(H (4 [60] 2))"
+      End
+      Begin PaneConfiguration = 12
+         NumPanes = 1
+         Configuration = "(H (1) )"
+      End
+      Begin PaneConfiguration = 13
+         NumPanes = 1
+         Configuration = "(V (4))"
+      End
+      Begin PaneConfiguration = 14
+         NumPanes = 1
+         Configuration = "(V (2))"
+      End
+      ActivePaneConfig = 0
+   End
+   Begin DiagramPane = 
+      Begin Origin = 
+         Top = 0
+         Left = 0
+      End
+      Begin Tables = 
+         Begin Table = "tail_lister"
+            Begin Extent = 
+               Top = 6
+               Left = 38
+               Bottom = 121
+               Right = 202
+            End
+            DisplayFlags = 280
+            TopColumn = 8
+         End
+      End
+   End
+   Begin SQLPane = 
+   End
+   Begin DataPane = 
+      Begin ParameterDefaults = ""
+      End
+      Begin ColumnWidths = 19
+         Width = 284
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+      End
+   End
+   Begin CriteriaPane = 
+      Begin ColumnWidths = 11
+         Column = 1440
+         Alias = 1545
+         Table = 1170
+         Output = 720
+         Append = 1400
+         NewValue = 1170
+         SortType = 1350
+         SortOrder = 1410
+         GroupBy = 1350
+         Filter = 1350
+         Or = 1350
+         Or = 1350
+         Or = 1350
+      End
+   End
+End
+' ,@level0type=N'SCHEMA', @level0name=N'dbo', @level1type=N'VIEW', @level1name=N'rs_user'
+
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPaneCount', @value=1 ,@level0type=N'SCHEMA', @level0name=N'dbo', @level1type=N'VIEW', @level1name=N'rs_user'
+

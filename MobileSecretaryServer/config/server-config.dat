@@ -1,0 +1,7 @@
+driverName=com.microsoft.sqlserver.jdbc.SQLServerDriver
+dbURL=jdbc:sqlserver://172.16.1.109:1433; DatabaseName=tail
+port=20000
+dbUserName=sa
+dbPassword=bacmp123
+picturesPath=\\\\172.16.1.109\\pictures
+picturesURL=../pictures/

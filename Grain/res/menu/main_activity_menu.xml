@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_quit"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="退出系统"/>
+        <item
+        android:id="@+id/action_logoff"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="登录"/>
+
+</menu>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ba.grain"
+    android:versionCode="4"
+    android:versionName="4.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="18" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name="com.ba.grain.GrainApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.ba.grain.SplashActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.ba.grain.LoginActivity"
+            android:label="@string/title_activity_login" >
+        </activity>
+        <activity
+            android:name="com.ba.grain.MainActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.ba.grain.LocalRecordActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
+        <activity
+            android:name="com.ba.grain.CollectActivity"
+            android:label="@string/title_activity_record" >
+        </activity>
+        <activity
+            android:name="com.ba.grain.RecordActivity"
+            android:label="@string/title_activity_query" >
+        </activity>
+        <activity
+            android:name="com.ba.grain.ReportActivity"
+            android:label="@string/title_activity_report" >
+        </activity>
+        <activity
+            android:name="com.ba.grain.ExportActivity"
+            android:label="@string/title_activity_export" >
+        </activity>
+        <activity
+            android:name="com.ba.grain.IMSActivity"
+            android:label="@string/title_activity_message" >
+        </activity>
+        <activity
+            android:name="com.ba.grain.PeizhiActivity"
+            android:label="@string/title_activity_peizhi" >
+        </activity>
+        <activity
+            android:name="com.ba.grain.HelpActivity"
+            android:label="@string/title_activity_help" >
+        </activity>
+        <activity
+            android:name="com.ba.grain.Query"
+            android:label="@string/title_activity_query" >
+        </activity>
+        <activity
+            android:name="com.ba.grain.EditActivity"
+            android:label="@string/title_activity_edit" >
+        </activity>
+        <activity
+            android:name="com.ba.grain.EditReportActivity"
+            android:label="@string/title_activity_edit" >
+        </activity>
+        <activity
+            android:name="com.ba.grain.EditExportActivity"
+            android:label="@string/title_activity_edit" >
+        </activity>
+    </application>
+    <!-- 加入在SDCard中创建与删除文件的权限 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- 加入在SDCard中写入数据的权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+</manifest>
