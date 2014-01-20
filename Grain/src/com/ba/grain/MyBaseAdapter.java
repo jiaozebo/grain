@@ -67,8 +67,6 @@ public class MyBaseAdapter extends BaseAdapter {
 			holder.tradePrice = (TextView) convertView.findViewById(R.id.tv_trade_price);
 			holder.daywholesalePrice = (TextView) convertView
 					.findViewById(R.id.tv_day_wholesale_price);
-			holder.weekWholesalePrice = (TextView) convertView
-					.findViewById(R.id.tv_week_wholesale_price);
 			holder.collectStation = (TextView) convertView.findViewById(R.id.tv_collect_station);
 			holder.grade = (TextView) convertView.findViewById(R.id.tv_grade);
 			holder.collectDateTime = (TextView) convertView.findViewById(R.id.tv_collect_date_time);
@@ -109,14 +107,12 @@ public class MyBaseAdapter extends BaseAdapter {
 
 			}
 		});
-		holder.buyPrice.setText(String.format("%s：%s", "购  买  价",
+		holder.buyPrice.setText(String.format("%s：%s", "收购价",
 				String.format("%1$.2f", item.buyPrice)));
-		holder.tradePrice.setText(String.format("%s：%s", "",
+		holder.tradePrice.setText(String.format("%s：%s", "批发价",
 				String.format("%1$.2f", item.tradePrice)));
-		holder.daywholesalePrice.setText(String.format("%s：%s", "日批发价",
+		holder.daywholesalePrice.setText(String.format("%s：%s", "零售价",
 				String.format("%1$.2f", item.dayRetailPrice)));
-		holder.weekWholesalePrice.setText(String.format("%s：%s", "周批发价",
-				String.format("%1$.2f", item.weekRetailPrice)));
 
 // holder.buyPrice.setText(String.format("%s: %.2f %s: %d", "购买价",item.buyPrice,
 // "购买数量",item.buyNumber));
@@ -157,7 +153,6 @@ public class MyBaseAdapter extends BaseAdapter {
 		TextView buyPrice;
 		TextView tradePrice;
 		TextView daywholesalePrice;
-		TextView weekWholesalePrice;
 		TextView collectStation;
 		TextView grade;
 		TextView collectDateTime;

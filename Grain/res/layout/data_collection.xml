@@ -235,7 +235,7 @@
                     android:layout_height="wrap_content"
                     android:padding="2dp"
                     android:singleLine="true"
-                    android:text="日报零售价￥："
+                    android:text="零售价￥："
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
@@ -253,90 +253,6 @@
                 </LinearLayout>
             </TableRow>
 
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="3dp" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="2dp"
-                    android:singleLine="true"
-                    android:text="日报零售数量(吨)："
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <EditText
-                        android:id="@+id/day_retail_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:inputType="numberDecimal"
-                        android:textSize="20sp" />
-                </LinearLayout>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="3dp" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="2dp"
-                    android:singleLine="true"
-                    android:text="周报零售价￥："
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-
-                    <EditText
-                        android:id="@+id/week_retail_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:inputType="numberDecimal"
-                        android:textSize="20sp" />
-                </LinearLayout>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="3dp" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="2dp"
-                    android:singleLine="true"
-                    android:text="周报零售数量(吨)："
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-
-                    <EditText
-                        android:id="@+id/week_retail_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:inputType="numberDecimal"
-                        android:textSize="20sp" />
-                </LinearLayout>
-            </TableRow>
-
             <TableRow>
 
                 <TextView
@@ -344,7 +260,7 @@
                     android:layout_height="wrap_content"
                     android:padding="2dp"
                     android:singleLine="true"
-                    android:text="品质"
+                    android:text="品牌:"
                     android:textColor="#000000"
                     android:textSize="20sp" />
 

@@ -67,6 +67,12 @@ public class ListItem extends Quotation implements Serializable, Comparable<List
 		for (int i = 0; i < att_val.length; i++) {
 			try {
 				String[] pair = att_val[i].split("=");
+				if (pair.length != 2) {
+					String[] newPair = new String[2];
+					newPair[0] = pair[0];
+					newPair[1] = "";
+					pair = newPair;
+				}
 				Field field = gi.getClass().getField(pair[0].trim());
 				if ("int".equalsIgnoreCase(field.getType().toString())) {
 					field.setInt(gi, Integer.parseInt(pair[1]));
@@ -109,23 +115,26 @@ public class ListItem extends Quotation implements Serializable, Comparable<List
 	public void setSite(Site site) {
 		mSite = site;
 		if (site != null) {
-			mSiteArea = site.name;
+			mSiteArea = site.area;
 			mSiteType = site.type;
+
+			site_id = site.id;
+			site_name = site.name;
 		}
 	}
 
 	@Override
 	public String toString() {
-		return "[mSiteArea=" + mSiteArea + ", mSiteType=" + mSiteType + ", id=" + id + ", site_id="
-				+ site_id + ", site_name=" + site_name + ", serinum=" + serinum + ", foodType_id="
-				+ foodType_id + ", footType_name=" + footType_name + ", grade_id=" + grade_id
-				+ ", grade_name=" + grade_name + ", buyPrice=" + buyPrice + ", tradePrice="
-				+ tradePrice + ", dayRetailPrice=" + dayRetailPrice + ", weekRetailPrice="
-				+ weekRetailPrice + ", buyNumber=" + buyNumber + ", tradeNumber=" + tradeNumber
-				+ ", dayRetailNumber=" + dayRetailNumber + ", weekRetailNumber=" + weekRetailNumber
-				+ ", lister_id=" + lister_id + ", s_remark=" + s_remark + ", s_dtCreate="
-				+ s_dtCreate + ", picture=" + picture + ", mUploaded=" + mUploaded
-				+ ", mSaveDateTime=" + mSaveDateTime + "]";
+		return "[key=" + key + ", isSelected=" + isSelected + ", mFilePath=" + mFilePath
+				+ ", mSiteArea=" + mSiteArea + ", mSiteType=" + mSiteType + ", id=" + id
+				+ ", site_id=" + site_id + ", site_name=" + site_name + ", serinum=" + serinum
+				+ ", foodType_id=" + foodType_id + ", footType_name=" + footType_name
+				+ ", grade_id=" + grade_id + ", grade_name=" + grade_name + ", buyPrice="
+				+ buyPrice + ", tradePrice=" + tradePrice + ", dayRetailPrice=" + dayRetailPrice
+				+ ", buyNumber=" + buyNumber + ", tradeNumber=" + tradeNumber + ", lister_id="
+				+ lister_id + ", s_remark=" + s_remark + ", s_dtCreate=" + s_dtCreate
+				+ ", picture=" + picture + ", mUploaded=" + mUploaded + ", mSaveDateTime="
+				+ mSaveDateTime + "]";
 	}
 
 }

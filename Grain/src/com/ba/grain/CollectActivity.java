@@ -23,7 +23,9 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
@@ -42,8 +44,26 @@ import android.widget.Toast;
 
 public class CollectActivity extends Activity implements OnItemSelectedListener, OnClickListener {
 	private static final int REQUEST_IMAGE = 0x1000;
-	private EditText mBuyPrice, mTradePrice, mDayRetailPrice, mWeekRetailPrice;
-	private EditText mBuyNumber, mTradeNumber, mDayRetailNumber, mWeekRetailNumber;
+	/**
+	 * 收购价
+	 */
+	private EditText mSGPrice;
+	/**
+	 * 批发价
+	 */
+	private EditText mPFPrice;
+	/**
+	 * 零售价
+	 */
+	private EditText mLSPrice;
+	/**
+	 * 收购数量
+	 */
+	private EditText mSGNumber;
+	/**
+	 * 批发数量
+	 */
+	private EditText mPFNumber;
 	private TextView mCollector, mCompany;
 	private Spinner mFoodType, mGrade, mCollectionStation;
 	private Button mButtonSave, mButtonReport, mButtonPicReport, mExporer;
@@ -73,16 +93,60 @@ public class CollectActivity extends Activity implements OnItemSelectedListener,
 	private void initViews() {
 		mCompany = (TextView) findViewById(R.id.company);
 		mCompany.setText(String.valueOf(G.sUser.department_id));
-		mBuyPrice = (EditText) findViewById(R.id.buy_price);
-		mTradePrice = (EditText) findViewById(R.id.trade_price);
-		mDayRetailPrice = (EditText) findViewById(R.id.day_retail_price);
-		mWeekRetailPrice = (EditText) findViewById(R.id.week_retail_price);
+		mSGPrice = (EditText) findViewById(R.id.buy_price);
+		mPFPrice = (EditText) findViewById(R.id.trade_price);
+		mLSPrice = (EditText) findViewById(R.id.day_retail_price);
 
-		mBuyNumber = (EditText) findViewById(R.id.buy_number);
-		mTradeNumber = (EditText) findViewById(R.id.trade_number);
-		mDayRetailNumber = (EditText) findViewById(R.id.day_retail_number);
-		mWeekRetailNumber = (EditText) findViewById(R.id.week_retail_number);
+		TextWatcher watcher = new TextWatcher() {
 
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				boolean empty = TextUtils.isEmpty(s.toString());
+				mSGNumber.setEnabled(!empty);
+				if (empty) {
+					mSGNumber.setText("");
+				}
+			}
+		};
+
+		TextWatcher watcher1 = new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				boolean empty = TextUtils.isEmpty(s.toString());
+				mPFNumber.setEnabled(!empty);
+				if (empty) {
+					mPFNumber.setText("");
+				}
+			}
+		};
+		mSGPrice.addTextChangedListener(watcher);
+		mPFPrice.addTextChangedListener(watcher1);
+
+		mSGNumber = (EditText) findViewById(R.id.buy_number);
+		mSGNumber.setEnabled(false);
+		mPFNumber = (EditText) findViewById(R.id.trade_number);
+		mPFNumber.setEnabled(false);
 		mCollectionStation = (Spinner) findViewById(R.id.sp_collection_station);
 		ArrayAdapter<?> adapter = new ArrayAdapter<Site>(this,
 				android.R.layout.simple_spinner_item, G.sSites);
@@ -332,8 +396,7 @@ public class CollectActivity extends Activity implements OnItemSelectedListener,
 
 	private String doSave(ListItem item) {
 		doSave(this, item);
-		clear(mBuyPrice, mTradePrice, mDayRetailPrice, mWeekRetailPrice, mBuyNumber, mTradeNumber,
-				mDayRetailNumber, mWeekRetailNumber, filePath);
+		clear(mSGPrice, mPFPrice, mLSPrice, mSGNumber, mPFNumber, filePath);
 		mPrePhoto.setImageResource(R.drawable.nophoto);
 		return item.key;
 	}
@@ -357,78 +420,51 @@ public class CollectActivity extends Activity implements OnItemSelectedListener,
 	}
 
 	private boolean initItem(ListItem item) {
-		boolean legal = checkLegal(mBuyPrice, mTradePrice, mDayRetailPrice, mWeekRetailPrice,
-				mBuyNumber, mTradeNumber, mDayRetailNumber, mWeekRetailNumber);
-		if (!legal) {
+		boolean lsLegal = checkLegal(mLSPrice);
+		boolean pfLegal = checkLegal(mPFPrice);
+		boolean sgLegal = checkLegal(mSGPrice);
+		if (!(sgLegal || pfLegal || lsLegal)) {
 			return false;
 		}
-		if (legal) {
-			try {
-				item.buyPrice = Float.parseFloat(mBuyPrice.getText().toString());
-			} catch (Exception e) {
-				mBuyPrice.setError("请输入合法价格");
-				mBuyPrice.requestFocus();
-				return false;
-			}
-			try {
-				item.tradePrice = Float.parseFloat(mTradePrice.getText().toString());
-			} catch (Exception e) {
-				mTradePrice.setError("请输入合法价格");
-				mTradePrice.requestFocus();
-				return false;
-			}
-			try {
-				item.dayRetailPrice = Float.parseFloat(mDayRetailPrice.getText().toString());
-			} catch (Exception e) {
-				mDayRetailPrice.setError("请输入合法价格");
-				mDayRetailPrice.requestFocus();
-				return false;
-			}
-			try {
-				item.weekRetailPrice = Float.parseFloat(mWeekRetailPrice.getText().toString());
-			} catch (Exception e) {
-				mWeekRetailPrice.setError("请输入合法价格");
-				mWeekRetailPrice.requestFocus();
-				return false;
-			}
-
-			try {
-				item.buyNumber = Integer.parseInt(mBuyNumber.getText().toString());
-			} catch (Exception e) {
-				mBuyNumber.setError("请输入合法数量");
-				mBuyNumber.requestFocus();
-				return false;
-			}
-			try {
-				item.tradeNumber = Integer.parseInt(mTradeNumber.getText().toString());
-			} catch (Exception e) {
-				mTradeNumber.setError("请输入合法数量");
-				mTradeNumber.requestFocus();
-				return false;
-			}
-			try {
-				item.dayRetailNumber = Integer.parseInt(mDayRetailNumber.getText().toString());
-			} catch (Exception e) {
-				mDayRetailNumber.setError("请输入合法数量");
-				mDayRetailNumber.requestFocus();
-				return false;
-			}
-			try {
-				item.weekRetailNumber = Integer.parseInt(mWeekRetailNumber.getText().toString());
-			} catch (Exception e) {
-				mWeekRetailNumber.setError("请输入合法数量");
-				mWeekRetailNumber.requestFocus();
-				return false;
-			}
+		mLSPrice.setError(null);
+		mPFPrice.setError(null);
+		mSGPrice.setError(null);
+		try {
+			item.buyPrice = Float.parseFloat(mSGPrice.getText().toString());
+		} catch (Exception e) {
+			item.buyPrice = 0;
+			e.printStackTrace();
+		}
+		try {
+			item.tradePrice = Float.parseFloat(mPFPrice.getText().toString());
+		} catch (Exception e) {
+			item.tradePrice = 0;
+			e.printStackTrace();
+		}
+		try {
+			item.dayRetailPrice = Float.parseFloat(mLSPrice.getText().toString());
+		} catch (Exception e) {
+			item.dayRetailPrice = 0;
+			e.printStackTrace();
+		}
+		try {
+			item.buyNumber = Integer.parseInt(mSGNumber.getText().toString());
+		} catch (Exception e) {
+			item.buyNumber = 0;
+			e.printStackTrace();
+		}
+		try {
+			item.tradeNumber = Integer.parseInt(mPFNumber.getText().toString());
+		} catch (Exception e) {
+			item.tradeNumber = 0;
+			e.printStackTrace();
 		}
 		Site site = (Site) mCollectionStation.getSelectedItem();
 		if (site == null) {
-			mDayRetailPrice.requestFocus();
+			mLSPrice.requestFocus();
 			Toast.makeText(this, "请选择采集站。", Toast.LENGTH_SHORT).show();
 			return false;
 		}
-		item.site_id = site.id;
-		item.site_name = site.name;
 		item.setSite(site);
 		FoodType ft = (FoodType) mFoodType.getSelectedItem();
 		if (ft == null) {

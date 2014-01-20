@@ -18,11 +18,8 @@ public class Quotation {
 	public float buyPrice;
 	public float tradePrice;
 	public float dayRetailPrice;
-	public float weekRetailPrice;
 	public int buyNumber;
 	public int tradeNumber;
-	public int dayRetailNumber;
-	public int weekRetailNumber;
 	public String lister_id;
 	public String s_remark;
 	public String s_dtCreate;
@@ -33,13 +30,26 @@ public class Quotation {
 	 * 保存时间，即采集时间
 	 */
 	public String mSaveDateTime;
-
 	@Override
 	public String toString() {
-		return "[site_id=" + site_id +",site_name="+site_name+ ", serinum=" + serinum + ", foodType_id=" + foodType_id+",footType_name="+footType_name
-				+ ", grade_id=" + grade_id +",grade_name="+grade_name+ ", buyPrice=" + buyPrice + ", tradePrice="
-				+ tradePrice + ", dayRetailPrice=" + dayRetailPrice + ", weekRetailPrice="
-				+ weekRetailPrice + ", mUploaded=" + mUploaded +",buyNumber="+buyNumber+",tradeNumber="+tradeNumber+",dayRetailNumber="+dayRetailNumber+",weekRetailNumber="+weekRetailNumber+",lister_id="+lister_id+ ", mSaveDateTime=" + mSaveDateTime
-				+",s_remark="+s_remark+",s_dtCreate="+s_dtCreate+",picture="+picture+"]";
+		return "[id=" + id + ", site_id=" + site_id + ", site_name=" + site_name
+				+ ", serinum=" + serinum + ", foodType_id=" + foodType_id + ", footType_name="
+				+ footType_name + ", grade_id=" + grade_id + ", grade_name=" + grade_name
+				+ ", buyPrice=" + buyPrice + ", tradePrice=" + tradePrice + ", dayRetailPrice="
+				+ dayRetailPrice + ", buyNumber=" + buyNumber + ", tradeNumber=" + tradeNumber
+				+ ", lister_id=" + lister_id + ", s_remark=" + s_remark + ", s_dtCreate="
+				+ s_dtCreate + ", picture=" + picture + ", mUploaded=" + mUploaded
+				+ ", mSaveDateTime=" + mSaveDateTime + "]";
 	}
+
+//	@Override
+//	public String toString() {
+//		return "[site_id=" + site_id +",site_name="+site_name+ ", serinum=" + serinum + ", foodType_id=" + foodType_id+",footType_name="+footType_name
+//				+ ", grade_id=" + grade_id +",grade_name="+grade_name+ ", buyPrice=" + buyPrice + ", tradePrice="
+//				+ tradePrice + ", dayRetailPrice=" + dayRetailPrice + ", weekRetailPrice="
+//				+ weekRetailPrice + ", mUploaded=" + mUploaded +",buyNumber="+buyNumber+",tradeNumber="+tradeNumber+",dayRetailNumber="+dayRetailNumber+",weekRetailNumber="+weekRetailNumber+",lister_id="+lister_id+ ", mSaveDateTime=" + mSaveDateTime
+//				+",s_remark="+s_remark+",s_dtCreate="+s_dtCreate+",picture="+picture+"]";
+//	}
+	
+	
 }

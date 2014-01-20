@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.util.List;
 
@@ -42,17 +43,31 @@ public class RequestResponse {
 	public static final String REQ_DOWNLOAD_FILE = "Dlf";
 	public static final int ERROR_NO_SUCH_FILE = 0x2001;
 	public static final String REQ_NEW_VERSION = "Rnv";
-	public static final String IMS_SENDER="IS";
+	public static final String IMS_SENDER = "IS";
+	/**
+	 * 解码密钥，客户端会用到。
+	 */
+	private static String sPwdHash;
 
 	public static int auth(Socket socket, String userID, String pwd, Node[] resp) {
+
+		String md5Pwd = encPwd(pwd);
 		XMLParser parser = new XMLParser();
-		resp[0] = parser.addTag(REQ, NAME, CHECK_USER, PARAM, userID, PASSWORD, pwd);
+		resp[0] = parser.addTag(REQ, NAME, CHECK_USER, PARAM, userID, PASSWORD, md5Pwd);
 		int result = requestWithResponse(socket, parser.toString(), resp);
 		if (result != 0) {
 			String err = XMLParser.getAttrVal(resp[0], PARAM, String.valueOf(0x1000));
 			System.out.println(err);
+		} else {
+			sPwdHash = md5Pwd;
 		}
 		return result;
+	}
+
+	public static String encPwd(String pwd) {
+		byte[] buffer = MD5.encrypt(pwd.getBytes());
+		String md5Pwd = MD5.byteArray2String(buffer);
+		return md5Pwd;
 	}
 
 	/**
@@ -108,15 +123,16 @@ public class RequestResponse {
 			}
 		}
 		String req = parser.toString();
-		File file=new File("/mnt/sdcard/Grain//log.txt");
-		if(!file.exists()){
+		File file = new File("/mnt/sdcard/Grain//log.txt");
+		if (!file.exists()) {
 			file.mkdirs();
 		}
 		save2File(req, file.getPath(), true);
-		int ret = requestWithResponse(socket, parser.toString(), result);
-	//	System.out.println("ret"+ret+":"+parser.toString()+":::;"+result);
+		// 不为null的时候不加密。因为这时候已经加过一次密了
+		int ret = requestWithResponse(socket, parser.toString(), result, fileName != null);
+		// System.out.println("ret"+ret+":"+parser.toString()+":::;"+result);
 		return ret;
-		
+
 	}
 
 	public static String file2String(String path) throws IOException {
@@ -161,7 +177,7 @@ public class RequestResponse {
 						Message msg = new Message();
 						msg.content = XMLParser.getAttrVal(ims, IMS_CONTENT, null);
 						msg.sendTime = XMLParser.getAttrVal(ims, IMS_TIME, null);
-						msg.sender=XMLParser.getAttrVal(ims, IMS_SENDER, null);
+						msg.sender = XMLParser.getAttrVal(ims, IMS_SENDER, null);
 						msgs.add(msg);
 					}
 					ims = ims.getNextSibling();
@@ -212,16 +228,14 @@ public class RequestResponse {
 		return result;
 	}
 
-	public static String parseRequest(String content, Node[] m) {
-		m[0] = getMsgNode(content, REQ);
-		if (m[0] == null) {
-			return null;
+	public static void send(Socket socket, String content, boolean... no_encode) throws IOException {
+		boolean encode = no_encode.length == 0 || (!no_encode[0]); // 默认加密
+		if (encode) {
+			content = new String(Base64.encode(content.getBytes(), Base64.NO_WRAP), "UTF-8");
 		}
-		return XMLParser.getAttrVal(m[0], NAME, null);
-	}
-
-	public static void send(Socket socket, String content) throws IOException {
-		StringBuffer sb = new StringBuffer(content);
+		StringBuffer sb = new StringBuffer();
+		sb.append(encode ? 'E' : 'N');
+		sb.append(content);
 		sb.append("\n");
 		OutputStream os = socket.getOutputStream();
 		os.write(sb.toString().getBytes());
@@ -245,17 +259,37 @@ public class RequestResponse {
 		return msg;
 	}
 
+	public static String parseRequest(String content, Node[] m) {
+		boolean encode = content.charAt(0) == 'E';
+		content = content.substring(1);
+		if (encode) {
+			try {
+				content = new String(Base64.decode(content.getBytes(), Base64.NO_WRAP), "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		m[0] = getMsgNode(content, REQ);
+		if (m[0] == null) {
+			return null;
+		}
+		return XMLParser.getAttrVal(m[0], NAME, null);
+	}
+
 	/**
 	 * 
 	 * @param socket
 	 * @param request
+	 * @param b
 	 * @return 负数表示通信错误，否则表示服务器返回来的错误码
 	 */
-	private static synchronized int requestWithResponse(Socket socket, String request, Node[] node) {
+	private static synchronized int requestWithResponse(Socket socket, String request, Node[] node,
+			boolean... no_encode) {
 		try {
-			send(socket, request);
+			send(socket, request, no_encode);
 			String content = receive(socket);
-		//	System.out.println("String content = receive(socket);"+content);
+			// System.out.println("String content = receive(socket);"+content);
 			Node req = node[0];
 			node[0] = getMsgNode(content, RESP);
 			if (!XMLParser.getAttrVal(req, NAME, "")

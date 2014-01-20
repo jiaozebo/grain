@@ -173,8 +173,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 						}
 						mPassword = mPasswordView.getText().toString();
 						if (TextUtils.isEmpty(mPassword)) {
-							mEmailView.setError("密码不能为空！");
-							mEmailView.requestFocus();
+							mPasswordView.setError("密码不能为空！");
+							mPasswordView.requestFocus();
 							return;
 						}
 

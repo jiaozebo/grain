@@ -49,10 +49,12 @@ public class MobileSecretaryServer {
 		System.out.println("Config file is loaded!");
 		
 		try {      
-			Class.forName(driverName);      
-			con = DriverManager.getConnection(dbURL, dbUserName, dbPassword);      
-			System.out.println("Connection Successful!");   //如果连接成功 控制台输出Connection Successful!     
-			 sql=con.createStatement();
+			Class.forName(driverName);
+			con = DriverManager.getConnection(dbURL, dbUserName, dbPassword);
+			System.out.println("Connection Successful!"); // 如果连接成功
+															// 控制台输出Connection
+															// Successful!
+			sql = con.createStatement();
 				final ExecutorService pool = Executors.newCachedThreadPool();
 				try {
 					ss = new ServerSocket(port); 

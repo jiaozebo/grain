@@ -28,7 +28,6 @@ public class EditActivity extends Activity {
 		EditText buyPrice=(EditText) this.findViewById(R.id.tv_buy_price);
 		EditText tradePrice=(EditText) this.findViewById(R.id.tv_trade_price);
 		EditText daywholesalePrice=(EditText) this.findViewById(R.id.tv_day_wholesale_price);
-		EditText weekWholesalePrice=(EditText) this.findViewById(R.id.tv_week_wholesale_price);
 		
 		TextView collectStation=(TextView) this.findViewById(R.id.tv_collect_station);
 		TextView grade=(TextView) this.findViewById(R.id.tv_grade);
@@ -62,7 +61,6 @@ public class EditActivity extends Activity {
 		buyPrice.setText(String.format("%s",String.format("%1$.2f", item.buyPrice)));
 		tradePrice.setText(String.format("%s", String.format("%1$.2f", item.tradePrice)));
 		daywholesalePrice.setText(String.format("%s",String.format("%1$.2f", item.dayRetailPrice)));
-		weekWholesalePrice.setText(String.format("%s",String.format("%1$.2f", item.weekRetailPrice)));
 		
 		collectStation.setText(String.format("%s",item.site_name ));
 		grade.setText(String.format("%s",item.grade_name ));
@@ -71,13 +69,9 @@ public class EditActivity extends Activity {
 		
 		EditText buynumber=(EditText) this.findViewById(R.id.buy_number);
 		EditText tradenumber=(EditText) this.findViewById(R.id.trade_number);
-		EditText dayretail_number=(EditText) this.findViewById(R.id.day_retail_number);
-		EditText weekretail_number=(EditText) this.findViewById(R.id.week_retail_number);
 		
 		buynumber.setText(""+item.buyNumber);
 		tradenumber.setText(""+item.tradeNumber);
-		dayretail_number.setText(""+item.dayRetailNumber);
-		weekretail_number.setText(""+item.weekRetailNumber);
 		
 		
 		EditText quality = (EditText) findViewById(R.id.et_quality);

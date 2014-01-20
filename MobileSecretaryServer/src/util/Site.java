@@ -15,6 +15,7 @@ public class Site implements Serializable {
 	public String address;
 	public String linkPhone;
 	public String fax;
+	public String area; 
 	
 	public final List<FoodType> foods = new ArrayList<FoodType>();
 	public String toString() {

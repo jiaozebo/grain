@@ -33,6 +33,9 @@ public class G {
 				st.name = XMLParser.getAttrVal(n, "name", "");
 				st.type = XMLParser.getAttrVal(n, "type", "");
 				st.id = XMLParser.getAttrVal(n, "id", "0");
+				st.area = XMLParser.getAttrVal(n, "area", "");
+				st.linkPhone = XMLParser.getAttrVal(n, "linkPhone", "");
+				st.fax = XMLParser.getAttrVal(n, "fax", "");
 				//System.out.println(st.address+":"+st.name+":"+st.type+":"+st.id);
 				Node fd = n.getFirstChild();
 				while (fd != null) {
