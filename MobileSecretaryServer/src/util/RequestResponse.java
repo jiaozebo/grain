@@ -229,6 +229,13 @@ public class RequestResponse {
 	}
 
 	public static void send(Socket socket, String content, boolean... no_encode) throws IOException {
+		boolean oldversion = no_encode.length == 2;
+		if (oldversion) {
+			OutputStream os = socket.getOutputStream();
+			os.write(content.getBytes());
+			os.write("\n".getBytes());
+			return;
+		}
 		boolean encode = no_encode.length == 0 || (!no_encode[0]); // 默认加密
 		if (encode) {
 			content = new String(Base64.encode(content.getBytes(), Base64.NO_WRAP), "UTF-8");
@@ -260,16 +267,21 @@ public class RequestResponse {
 	}
 
 	public static String parseRequest(String content, Node[] m) {
-		boolean encode = content.charAt(0) == 'E';
-		content = content.substring(1);
-		if (encode) {
-			try {
-				content = new String(Base64.decode(content.getBytes(), Base64.NO_WRAP), "UTF-8");
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		char c = content.charAt(0);
+		boolean oldVersion = c == '<';// 兼容未加密老版本
+		if (!oldVersion) { // 新版本，检测是不是加密了
+			content = content.substring(1);
+			boolean encode = c == 'E';
+			if (encode) {
+				try {
+					content = new String(Base64.decode(content.getBytes(), Base64.NO_WRAP), "UTF-8");
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
+
 		m[0] = getMsgNode(content, REQ);
 		if (m[0] == null) {
 			return null;
@@ -308,6 +320,33 @@ public class RequestResponse {
 	private static String receive(Socket socket) throws IOException {
 		BufferedReader is = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		String content = is.readLine();
+
+		// boolean encode = content.charAt(0) == 'E';
+		// content = content.substring(1);
+		// if (encode) {
+		// try {
+		// content = new String(Base64.decode(content.getBytes(),
+		// Base64.NO_WRAP), "UTF-8");
+		// } catch (UnsupportedEncodingException e) {
+		// e.printStackTrace();
+		// }
+		// }
+		// return content;
+
+		char c = content.charAt(0);
+		boolean oldVersion = c == '<';// 兼容未加密老版本
+		if (!oldVersion) { // 新版本，检测是不是加密了
+			content = content.substring(1);
+			boolean encode = c == 'E';
+			if (encode) {
+				try {
+					content = new String(Base64.decode(content.getBytes(), Base64.NO_WRAP), "UTF-8");
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 		return content;
 	}
 

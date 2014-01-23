@@ -1,0 +1,2 @@
+1、分别更换ClientRunnable与RequestResponse两个文件
+2、将MD5放至于RequestResponse同目录下

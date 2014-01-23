@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.Socket;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,6 +42,7 @@ public class ClientRunnable extends Thread {
 	 */
 	private User mUser;
 	private String mPwdHash;
+	boolean[] oldVersion;
 
 	public ClientRunnable(Socket s, Statement sql) {
 		socket = s;
@@ -65,6 +65,12 @@ public class ClientRunnable extends Thread {
 					Node[] m = new Node[1];
 					String id = RequestResponse.parseRequest(content, m);// 返回请求的类型
 					if (RequestResponse.CHECK_USER.equals(id)) {// 用户登陆
+						char c = content.charAt(0);
+						if (c == '<') {
+							oldVersion = new boolean[] { true, true };
+						} else {
+							oldVersion = new boolean[] { false };
+						}
 						String usrID = XMLParser.getAttrVal(m[0], RequestResponse.PARAM, "");
 						String pwd = XMLParser.getAttrVal(m[0], RequestResponse.PASSWORD, "");
 						int result = 0;
@@ -90,7 +96,13 @@ public class ClientRunnable extends Thread {
 									user.email = rsUsr.getString("email");
 									user.loginName = rsUsr.getString("loginName");
 									user.password = rsUsr.getString("password");
-									if (pwd.equals(RequestResponse.encPwd(user.password))) {
+									boolean match = false;
+									if (oldVersion[0]) {
+										match = pwd.equals(user.password);
+									} else {
+										match = pwd.equals(RequestResponse.encPwd(user.password));
+									}
+									if (match) {
 										// 查出部门
 										rsDepartment = statement.executeQuery(String.format(
 												"select * from %s where id='%s'", "rs_department",
@@ -214,7 +226,7 @@ public class ClientRunnable extends Thread {
 						}
 						String resp = parser.toString();
 						// System.out.println(resp);
-						RequestResponse.send(socket, resp);
+						RequestResponse.send(socket, resp, oldVersion);
 					} else if (RequestResponse.EXCUTE_INSERT.equals(id)) { // 插入操作
 						synchronized (statement) {
 							int result = 0;
@@ -283,7 +295,7 @@ public class ClientRunnable extends Thread {
 									RequestResponse.PARAM, msg);
 							String resp = parser.toString();
 							System.out.println(resp);
-							RequestResponse.send(socket, resp);
+							RequestResponse.send(socket, resp, oldVersion);
 						}
 					} else if (RequestResponse.Q_REQUEST_IMS.equals(id)) {// 无更新，则param为空，否则param为更新ID，param子标签为更新详细内容
 						ResultSet rsIms = null;
@@ -328,7 +340,7 @@ public class ClientRunnable extends Thread {
 							}
 						}
 						String resp1 = parser.toString();
-						RequestResponse.send(socket, resp1);
+						RequestResponse.send(socket, resp1, oldVersion);
 						if (sb.length() != 0) {
 							// System.out.println(resp1);
 							// System.out.println("更新"+sb);
@@ -358,7 +370,7 @@ public class ClientRunnable extends Thread {
 								param);
 						String resp = parser.toString();
 						System.out.println(String.format("down load file :%s", path));
-						RequestResponse.send(socket, resp);
+						RequestResponse.send(socket, resp, oldVersion);
 					} else if (RequestResponse.REQ_NEW_VERSION.equals(id)) {
 						ResultSet rsVersion = null;
 						synchronized (statement) {
@@ -403,7 +415,7 @@ public class ClientRunnable extends Thread {
 						}
 						String resp = parser.toString();
 						System.out.println(resp);
-						RequestResponse.send(socket, resp);
+						RequestResponse.send(socket, resp, oldVersion);
 					}
 					Thread.sleep(100);
 				} else {
